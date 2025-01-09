@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+<head>
+    <style>
+        html,
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        nav {
+            background-color: rgb(51, 51, 51);
+            width: 250px;
+            height: 100vh;
+            padding-top: 20px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        nav a {
+            color: white;
+            margin: 10px 0;
+            text-decoration: none;
+            font-size: 14px;
+            padding: 12px 20px;
+            border-radius: 8px;
+            text-align: justify;
+            width: 80%;
+            transition: background-color 0.3s ease;
+        }
+
+        nav a:hover,
+        nav a.active {
+            background-color: #7e47c7;
+        }
+
+        .container {
+            text-align: center;
+            margin-left: 250px;
+        }
+
+        .container img {
+            width: 200px;
+            height: auto;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            font-size: 40px;
+            color: #3b0051;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .divider {
+            width: 60px;
+            height: 4px;
+            background-color: #7e47c7;
+            margin: 0 auto 10px;
+            border-radius: 2px;
+        }
+
+        h5 {
+            font-size: 14px;
+            color: #7a7a7a;
+            margin-top: 0;
+        }
+        nav a:last-child {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            color: white;
+            font-size: 14px;
+            text-decoration: none;
+            padding: 5px 0;
+        }
+
+        nav a:last-child:hover {
+            background-color: transparent;
+            text-decoration: underline;
+        }
+
+    </style>
+    <title>Tela de Inicio</title>
+</head>
+
+<body>
+
+    <!-- Menu de navegação superior -->
+    <nav>
+        <a th:href="@{/publicacao}">Cadastrar Publicação</a>
+        <a th:href="@{/editora}">Cadastrar Editora</a>
+        <a th:href="@{/autor}">Cadastrar Autor</a>
+        <a th:href="@{/telaInicial}">Voltar ao Inicio</a>
+    </nav>
+
+    <div class="container" data-aos="fade-up">
+        <img src="/foto.png" alt="Imagem representativa">
+        <h1>Aplicativo de Cadastro de Publicação Literária</h1>
+        <div class="divider"></div>
+        <h5> © Todos os Direitos Reservados à Taiza Langa.</h5>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+</body>
+
+</html>

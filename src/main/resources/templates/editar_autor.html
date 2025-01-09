@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <style>
+        html, body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+    
+        nav {
+            background-color: rgb(51, 51, 51);
+            width: 250px;
+            height: 100vh;
+            padding-top: 20px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    
+        nav a {
+            color: white;
+            margin: 10px 0;
+            text-decoration: none;
+            font-size: 14px;
+            padding: 12px 20px;
+            border-radius: 8px;
+            text-align: justify;
+            width: 80%;
+            transition: background-color 0.3s ease;
+        }
+    
+        nav a:hover {
+            background-color: #7e47c7;
+        }
+
+        nav a.active {
+            background-color: #7e47c7;
+        }
+    
+        .form-container {
+            margin-left: 250px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f6f4f9;
+        }
+    
+        form {
+            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 600px;
+        }
+    
+        h1 {
+            color: rgb(51, 51, 51);
+            margin-bottom: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+        }
+    
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: rgb(51, 51, 51);
+            width: 100%;
+        }
+    
+        input[type="text"],
+        input[type="number"] {
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            width: 100%;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+    
+        input[type="text"]:focus,
+        input[type="number"]:focus {
+            border-color: #7e47c7;
+            outline: none;
+        }
+    
+        button {
+            background-color: #7425beb2;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 104%;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+    
+        button:hover {
+            background-color: #5720af;
+        }
+    
+        @media (max-width: 800px) {
+            nav {
+                width: 200px;
+            }
+    
+            nav a {
+                font-size: 12px;
+                padding: 10px;
+            }
+    
+            .form-container {
+                margin-left: 200px;
+            }
+        }
+        nav a:last-child {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            color: white;
+            font-size: 14px;
+            text-decoration: none;
+            padding: 5px 0;
+        }
+
+        nav a:last-child:hover {
+            background-color: transparent;
+            text-decoration: underline;
+        }
+    </style>
+    <title>Editar Autor</title>
+</head>
+
+<body>
+
+    <nav>
+        <a th:href="@{/publicacao}">Cadastrar Publicação</a>
+        <a th:href="@{/editora}">Cadastrar Editora</a>
+        <a th:href="@{/autor}">Cadastrar Autor</a>
+        <a th:href="@{/telaInicial}">Voltar ao Inicio</a>
+    </nav>
+
+    <div class="form-container">
+        <form th:action="@{/autor/editar}" th:object="${autor}" method="post" enctype="multipart/form-data">
+            <h1>Editar Autor</h1>
+
+            <label>Id:</label>
+            <input type="text" th:field="*{id_autor}" readonly>
+
+            <label>Nome:</label>
+            <input type="text" th:field="*{nome}" pattern=".*\S+.*" required
+            title="Este campo não pode ser preenchido apenas com espaços.">
+
+            <label>Ano de Nascimento:</label>
+            <input type="number" th:field="*{ano_nascimento}" min="1000" max="2024" oninput="if(this.value.length > 4) this.value = this.value.slice(0, 4);" required>
+
+            <label>Nacionalidade:</label>
+            <input type="text" th:field="*{nacionalidade}" pattern=".*\S+.*" required
+            title="Este campo não pode ser preenchido apenas com espaços.">
+
+            <button type="submit">Salvar Alterações</button>
+        </form>
+    </div>
+
+    <script>
+        const navLinks = document.querySelectorAll("nav a");
+        const currentUrl = window.location.pathname;
+    
+        navLinks.forEach(link => {
+            const href = link.getAttribute("href");
+
+            if (href === currentUrl || 
+                (href === "/autor" && (currentUrl.includes("/listarAutor") || currentUrl.includes("/editar")))) {
+                link.classList.add("active");
+            }
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,241 @@
+<!DOCTYPE html> 
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <style>
+        html, body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+    
+        nav {
+            background-color: rgb(51, 51, 51);
+            width: 250px;
+            height: 100vh;
+            padding-top: 20px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    
+        nav a {
+            color: white;
+            margin: 10px 0;
+            text-decoration: none;
+            font-size: 14px;
+            padding: 12px 20px;
+            border-radius: 8px;
+            text-align: justify;
+            width: 80%;
+            transition: background-color 0.3s ease;
+        }
+    
+        nav a:hover {
+            background-color: #7e47c7;
+        }
+
+        nav a.active {
+            background-color: #7e47c7;
+        }
+
+        .container {
+             margin-left: 250px;
+             padding: 20px;
+             justify-content: center;
+             align-items: center;
+        }
+
+        h1 {
+            color: rgb(51, 51, 51);
+            margin-bottom: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+        }
+        table {
+            width: 90%; 
+            max-width: 1200px;
+            margin: 20px auto;
+            border-collapse: collapse;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            background-color: white;
+        }
+        
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        
+        th {
+            background-color: #7425beb2;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        td {
+            padding: 10px;
+            text-align: left;
+        }
+        
+        .acao {
+            display: flex;
+            gap: 5px; 
+            justify-content: center;
+        }
+
+        .edit {
+            background-color: #4CAF50;
+            border: none;
+            padding: 8px 16px;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .edit:hover {
+            background-color: #3e8e41;
+        }
+
+        .del {
+            background-color: #f44336;
+            border: none;
+            padding: 8px 16px;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .del:hover {
+            background-color: #d32f2f;
+        }
+
+        .alert {
+            padding: 20px;
+            width: 50%;
+            max-width: 600px;
+            margin: 0 auto;
+            margin-top: 40px;
+            border-radius: 5px;
+            font-size: 16px;
+            text-align: center;
+            color: #a94442;
+            background-color: #def2e2;
+            border: 1px solid #359135;
+            position: relative;
+            margin-left: 39.5%;
+        }
+        
+        .alert-danger {
+            color: #a94442;
+            background-color: #f2dede;
+            border: 1px solid #ebccd1;
+        }
+        .alert-success {
+            color: #3c763d;
+            background-color: #dff0d8;
+            border: 1px solid #d6e9c6;
+        }
+        nav a:last-child {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            color: white;
+            font-size: 14px;
+            text-decoration: none;
+            padding: 5px 0;
+        }
+
+        nav a:last-child:hover {
+            background-color: transparent;
+            text-decoration: underline;
+        }
+        
+    </style>
+    <title>Listar Editores</title>
+</head>
+
+<body>
+
+    <div th:if="${erro}" class="alert alert-danger">
+        <p th:text="${erro}"></p>
+    </div>
+
+    <div th:if="${sucesso}" class="alert alert-success">
+        <p th:text="${sucesso}"></p>
+    </div>
+
+    <nav>
+        <a th:href="@{/publicacao}">Cadastrar Publicação</a>
+        <a th:href="@{/editora}">Cadastrar Editora</a>
+        <a th:href="@{/autor}">Cadastrar Autor</a>
+        <a th:href="@{/telaInicial}">Voltar ao Inicio</a>
+    </nav>
+    <div class="container">
+    <div>
+    <h1>Lista de Editores</h1>
+    <table>
+        <tr>
+            <th>id Editora</th>
+            <th>Nome</th>
+            <th>Estado (sigla)</th>
+            <th>Data de Fundação</th>
+            <th>Ações</th>
+        </tr>
+        <tr th:each="editora : ${listarEditora}">
+            <td th:text="${editora.idEditora}"></td>
+            <td th:text="${editora.nome}"></td>
+            <td th:text="${editora.endereco}" style="text-transform:uppercase;"></td>
+            <td th:text="${editora.dataFundacao}"></td>
+            <td>
+                <div class="acao">
+                    <a th:href="@{/editora/editar/{idEditora}(idEditora=${editora.idEditora})}">
+                        <button type="button" class="edit">Editar</button>
+                    </a>
+
+                    <form th:action="@{/editora/deletar/{idEditora}(idEditora=${editora.idEditora})}" method="post">
+                        <button type="submit" onclick="return confirm('Tem certeza que deseja deletar esta publicação?');"
+                            class="del">
+                            Deletar
+                        </button>
+                    </form>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+</div>
+    <br>
+    <a th:href="@{/editora}">
+        <button type="button">Cadastrar Nova Editora</button>
+    </a>
+
+    <script>
+        const navLinks = document.querySelectorAll("nav a");
+        const currentUrl = window.location.pathname;
+    
+        navLinks.forEach(link => {
+            const href = link.getAttribute("href");
+   
+            if (href === currentUrl || (href === "/editora" && currentUrl.includes("/listarEditora"))) {
+                link.classList.add("active");
+            }
+        });
+    </script>
+    
+</body>
+</html>
