@@ -1,10 +1,10 @@
-<h3>Sistema de Gestão de Publicações</h3>h3>
+<h3>Sistema de Gestão de Publicações</h3>
 
 Sistema web desenvolvido em Java com Spring Boot para gerenciar autores, editoras e publicações. Cada publicação está vinculada a um autor e a uma editora, permitindo uma gestão eficiente.
 
 ---
 
-Funcionalidades
+<h3>Funcionalidades</h3>
 
 Cadastro, listagem, edição e exclusão de autores, editoras e publicações.
 
@@ -16,7 +16,7 @@ Estrutura organizada em camadas (Controller, Service, Repository) para facilitar
 
 ---
 
-Tecnologias Utilizadas
+<h3>Tecnologias Utilizadas</h3>
 
 Back-end: Java, Spring Boot, JPA
 
