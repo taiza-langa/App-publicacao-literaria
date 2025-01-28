@@ -1,4 +1,4 @@
-<h3>Sistema de Gestão de Publicações</h3>
+<h1>Sistema de Gestão de Publicações</h1>
 
 Sistema web desenvolvido em Java com Spring Boot para gerenciar autores, editoras e publicações. Cada publicação está vinculada a um autor e a uma editora, permitindo uma gestão eficiente.
 
